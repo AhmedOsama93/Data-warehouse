@@ -1,0 +1,10 @@
+SELECT 
+{[Constructors].[Nationality].&[Austrian],[Constructors].[Nationality].&[British],[Constructors].[Nationality].&[Indian],[Constructors].[Nationality].&[Japanese]} on COLUMNS,
+{ [races].[race id].&[1] ,[races].[race id].&[2],[races].[race id].&[3],[races].[race id].&[4]} on ROWS
+FROM [Races Data Warehouse]
+
+
+SELECT 
+{[Races].[Name].members	} on COLUMNS,
+{[Time].[Year].&[2007],[Time].[Year].&[2008],[Time].[Year].&[2009] } on ROWS
+FROM [Races Data Warehouse]

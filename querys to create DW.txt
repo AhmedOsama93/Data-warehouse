@@ -1,0 +1,66 @@
+CREATE TABLE [dbo].[Time] (
+[timeID] int IDENTITY(1,1) PRIMARY KEY,
+[year] float
+)
+*****
+Time dimintion:
+SELECT distinct racesDW.dbo.races.year 
+From racesDW.dbo.races
+
+**************************************************************
+CREATE TABLE [dbo].[countries] (
+[countryID] int IDENTITY(1,1) PRIMARY KEY,
+[country] nvarchar(255)
+)
+*****
+countries:
+SELECT distinct country
+From circuits
+
+**************************************************************
+fact table:
+select 
+driverId,results.raceId,races.circuitId,constructorId,timeId,coun
+tryID,position ,points
+from racesDW.dbo.results results Join racesDW.dbo.races races 
+ON results.raceId=races.raceId
+INNER JOIN racesDW.dbo.circuits circuits ON 
+circuits.circuitId=races.raceId
+INNER JOIN racesDataWarehouse.dbo.Time TimeDimintion ON 
+races.year = TimeDimintion.year
+INNER JOIN racesDataWarehouse.dbo.countries 
+countriesDimintion ON circuits.country = 
+countriesDimintion.country
+
+**************************************************************
+constructors:
+select constructorId,name,nationality,constructorRef
+from racesDW.dbo.constructors
+
+**************************************************************
+Race:
+select raceId,name,date,time,round
+from races
+
+**************************************************************
+circuits:
+SELECT racesDW.dbo.circuits.circuitId as CircuitID, 
+racesDW.dbo.circuits.circuitRef as CircuitRef, 
+racesDW.dbo.circuits.location as location, 
+racesDW.dbo.circuits.country as country, 
+racesDW.dbo.circuits.lat as lat, racesDW.dbo.circuits.alt as alt, 
+racesDW.dbo.circuits.lng as lng, racesDW.dbo.circuits.name as 
+name
+FROM racesDW.dbo.circuits
+
+**************************************************************
+Drivers:
+Select racesDW.dbo.drivers.driverId AS DriverID,
+racesDW.dbo.drivers.driverRef AS DriverRef,
+racesDW.dbo.drivers.number AS Number,
+racesDW.dbo.drivers.code AS Code,
+racesDW.dbo.drivers.forename AS ForeName,
+racesDW.dbo.drivers.surname AS SureName,
+racesDW.dbo.drivers.dob AS Dob,
+racesDW.dbo.drivers.nationality AS Nationality
+FROM racesDW.dbo.drivers
